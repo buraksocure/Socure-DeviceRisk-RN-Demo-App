@@ -20,14 +20,34 @@ class Profiling: NSObject {
     if let uuid = UserDefaults.standard.string(forKey: "DeviceRiskUUID") {
         existingDeviceRiskUUID = uuid
     }
-    deviceRiskManager.setTracker(key: "990c3f80-4162-4410-841c-63a9ec0bef16", sources:  [.device, .network, .accessibility, .locale, .advertising, .accelerometer,.magnetometer,.motion, .pedometer, .location], existingUUID: existingDeviceRiskUUID)
+    deviceRiskManager.setTracker(key: "dff2ebfc-fbdf-4d77-80f2-78f9900978f2", sources:  [.device, .network, .accessibility, .locale, .advertising, .accelerometer,.magnetometer,.motion, .pedometer, .location], existingUUID: existingDeviceRiskUUID)
+    deviceRiskManager.delegate = self
     callback(["profiling configured"])
   }
   
   @objc
   func sendData(_ callback: RCTResponseSenderBlock) {
     deviceRiskManager.sendData()
-    callback([existingDeviceRiskUUID])
+    callback([existingDeviceRiskUUID ?? "profile failed"])
   }
   
 }
+
+
+extension Profiling:DeviceRiskUploadCallback {
+    func dataUploadFinished(uploadResult: DeviceRiskUploadResult) {
+        print(uploadResult.uuid ?? "")
+        if let uuid = uploadResult.uuid {
+            UserDefaults.standard.setValue(uuid, forKey: "DeviceRiskUUID")
+        }
+    }
+    
+    func onError(errorType: DeviceRiskErrorType, errorMessage: String) {
+        print(errorMessage)
+    }
+    
+    
+}
+
+
+

@@ -6,8 +6,9 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Node } from 'react';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -29,82 +30,53 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const Section = ({ children, title }): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
 const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  var [uuid, setUUID] = useState("");
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  function Burak() {
-    console.log('inside the function');
+  function configProfile() {
     NativeModules.Profiling.configProfile(value => {
       console.log("Profile: " + value)
-
-      NativeModules.Profiling.sendData(value => {
-        console.log("Profile: " + value)
-      })
-
     })
-
-
-
   }
- 
-//  NativeModules.Counter.inc()
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-                      <Text onPress={Burak} > Press Here </Text>
+  function getUUID() {
+    return uuid;
+  }
 
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+  function doProfile() {
+    NativeModules.Profiling.sendData(value => {
+      console.log("Profile: " + value)
+      setUUID(value);
+    })
+  }
 
+return (
+  <SafeAreaView>
+    <ScrollView
+      contentInsetAdjustmentBehavior="automatic" style="styles"> 
+      <Header />
+      <View>
+        <Text onPress={configProfile}> Configure Device Risk SDK</Text>
+      </View>
+      <View>
+        <Text onPress={doProfile}> do Profiling </Text>
+      </View>
+      <View>
+        <Text>Device ID: {uuid} </Text>
+      
+      </View>
+    </ScrollView>
+  </SafeAreaView>
+)
+
+}
 const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
   },
-  sectionTitle: {
-    fontSize: 24,
+  Text: {
+    fontSize: 12,
     fontWeight: '600',
   },
   sectionDescription: {

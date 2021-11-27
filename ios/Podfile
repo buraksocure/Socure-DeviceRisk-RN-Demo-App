@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '13'
 
-target 'CounterApp' do
+target 'ProfilingApp' do
   config = use_native_modules!
   pod 'Alamofire'
   
@@ -12,11 +12,6 @@ target 'CounterApp' do
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
   )
-
-  target 'CounterAppTests' do
-    inherit! :complete
-    # Pods for testing
-  end
 
   # Enables Flipper.
   #

@@ -60,6 +60,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>socurePublicKey</key>
-	<string>990c3f80-4162-4410-841c-63a9ec0bef16</string>
+	<string>Your-Socure-API-Key</string>
 </dict>
 </plist>

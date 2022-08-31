@@ -1,0 +1,30 @@
+{
+  "name": "DeviceRisk",
+  "version": "1.2.0",
+  "summary": "Socure Device Risk SDK, iOS Version.",
+  "description": "Socure's DeviceRisk SDK, iOS version",
+  "homepage": "https://github.com/socure-inc/socure-sigmadevice-sdk-ios",
+  "license": "private",
+  "authors": {
+    "Socure-Inc": "deepanker@socure.com"
+  },
+  "source": {
+    "git": "https://github.com/socure-inc/socure-sigmadevice-sdk-ios",
+    "tag": "1.2.0"
+  },
+  "platforms": {
+    "ios": "12.0"
+  },
+  "swift_versions": "5.0",
+  "vendored_frameworks": "Framework/DeviceRisk.xcframework",
+  "preserve_paths": "Framework/DeviceRisk.xcframework",
+  "ios": {
+    "frameworks": "UIKit"
+  },
+  "dependencies": {
+    "TrustKit": [
+
+    ]
+  },
+  "swift_version": "5.0"
+}

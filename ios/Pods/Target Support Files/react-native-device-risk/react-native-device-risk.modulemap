@@ -1,0 +1,6 @@
+framework module react_native_device_risk {
+  umbrella header "react-native-device-risk-umbrella.h"
+
+  export *
+  module * { export * }
+}
